@@ -119,15 +119,17 @@ nav ul {
 
 /* Glass Container */
 .glass-container {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 40px;
-    margin: 20px 0;
-    transition: var(--transition-smooth);
     position: relative;
-    overflow: hidden;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    z-index: 2;
 }
 
 .glass-container::before {
@@ -1038,9 +1040,12 @@ footer {
 
 /* Scroll Animations */
 .section {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: var(--transition-smooth);
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 100px 20px;
+    z-index: 1;
+    background: transparent;
 }
 
 .section.animate {
@@ -2108,4 +2113,39 @@ body {
 /* Remove any cursor changes from text elements */
 p, h1, h2, h3, h4, h5, h6, span, li {
     cursor: default;
+}
+
+/* Update section-specific styles */
+.about-section,
+.pricing-section {
+    position: relative;
+    z-index: 1;
+    background: transparent;
+}
+
+.about-section .glass-container,
+.pricing-section .glass-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Ensure proper stacking on mobile */
+@media (max-width: 768px) {
+    .section {
+        position: relative;
+        z-index: 1;
+    }
+
+    .glass-container {
+        position: relative;
+        z-index: 2;
+        margin: 20px;
+        padding: 20px;
+    }
+
+    .about-section,
+    .pricing-section {
+        position: relative;
+        z-index: 1;
+    }
 }
