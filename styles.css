@@ -86,10 +86,18 @@ header {
     text-shadow: var(--neon-glow);
 }
 
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
 nav ul {
     display: flex;
     gap: 30px;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-link {
@@ -117,6 +125,45 @@ nav ul {
     transform-origin: left;
 }
 
+/* Let's Chat Button in Nav */
+.nav-chat-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 25px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border-radius: 25px;
+    color: var(--background-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-smooth);
+    margin-left: 20px;
+}
+
+.nav-chat-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
+
+.nav-chat-btn span {
+    font-size: 1.1em;
+}
+
+/* Responsive Design for Nav */
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+    }
+
+    .nav-chat-btn {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+}
+
 /* Glass Container */
 .glass-container {
     position: relative;
@@ -130,6 +177,7 @@ nav ul {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     z-index: 2;
+    overflow: hidden;
 }
 
 .glass-container::before {
@@ -146,6 +194,7 @@ nav ul {
         transparent
     );
     transition: var(--transition-smooth);
+    z-index: 1;
 }
 
 .glass-container:hover::before {
@@ -168,19 +217,23 @@ nav ul {
 }
 
 .hero-title {
-    font-family: var(--font-secondary);
-    font-size: 3rem;
-    margin-bottom: 20px;
-    position: relative;
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    color: var(--text-color);
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    white-space: nowrap;
 }
 
+.hero-title span {
+    color: var(--primary-color);
+    display: inline;
+}
+
+/* Remove cursor styles */
 .hero-title .cursor {
-    display: inline-block;
-    width: 3px;
-    height: 1em;
-    background: var(--primary-color);
-    margin-left: 5px;
-    animation: blink 1s infinite;
+    display: none;
 }
 
 .hero-subtitle {
@@ -392,6 +445,7 @@ nav ul {
 .about-section {
     padding: 120px 40px;
     position: relative;
+    overflow: hidden;
 }
 
 .about-content {
@@ -784,9 +838,8 @@ nav ul {
 }
 
 @keyframes blink {
-    50% {
-        opacity: 0;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 @keyframes float {
@@ -1046,6 +1099,7 @@ footer {
     padding: 100px 20px;
     z-index: 1;
     background: transparent;
+    overflow: hidden;
 }
 
 .section.animate {
@@ -1191,6 +1245,7 @@ footer {
 .pricing-section {
     padding: var(--section-padding);
     position: relative;
+    overflow: hidden;
 }
 
 .pricing-currency-toggle {
@@ -2121,12 +2176,14 @@ p, h1, h2, h3, h4, h5, h6, span, li {
     position: relative;
     z-index: 1;
     background: transparent;
+    overflow: hidden;
 }
 
 .about-section .glass-container,
 .pricing-section .glass-container {
     position: relative;
     z-index: 2;
+    overflow: hidden;
 }
 
 /* Ensure proper stacking on mobile */
@@ -2134,6 +2191,7 @@ p, h1, h2, h3, h4, h5, h6, span, li {
     .section {
         position: relative;
         z-index: 1;
+        overflow: hidden;
     }
 
     .glass-container {
@@ -2141,11 +2199,13 @@ p, h1, h2, h3, h4, h5, h6, span, li {
         z-index: 2;
         margin: 20px;
         padding: 20px;
+        overflow: hidden;
     }
 
     .about-section,
     .pricing-section {
         position: relative;
         z-index: 1;
+        overflow: hidden;
     }
 }
