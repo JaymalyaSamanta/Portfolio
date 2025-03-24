@@ -11,8 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initPricingToggle();
     initContactPopup();
     initContactForm();
-    initTestimonials();
-    initSkillCards();
     initNavigationHighlight();
 });
 
@@ -250,30 +248,57 @@ function initParallaxEffect() {
 // Mobile Menu
 function initMobileMenu() {
     const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('nav ul');
+    const nav = document.querySelector('nav');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    menuToggle.addEventListener('click', () => {
-        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    // Toggle menu
+    menuToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
         menuToggle.classList.toggle('active');
+        nav.classList.toggle('active');
+        
+        // Toggle body scroll
+        if (nav.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
     });
 
     // Close menu when clicking a link
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (window.innerWidth <= 768) {
-                nav.style.display = 'none';
                 menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
     });
 
-    // Reset menu display on window resize
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && 
+            !nav.contains(e.target) && 
+            !menuToggle.contains(e.target) && 
+            nav.classList.contains('active')) {
+            menuToggle.classList.remove('active');
+            nav.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+
+    // Prevent menu from closing when clicking inside nav
+    nav.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // Reset menu state on window resize
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
-            nav.style.display = 'flex';
-        } else {
-            nav.style.display = 'none';
+            nav.classList.remove('active');
+            menuToggle.classList.remove('active');
+            document.body.style.overflow = '';
         }
     });
 }
@@ -366,87 +391,83 @@ function initContactPopup() {
     });
 }
 
-// Contact Form Handling
-function initContactForm() {
-    const form = document.getElementById('contact-form');
-    const submitBtn = form.querySelector('.submit-btn');
-    const submitText = submitBtn.querySelector('span');
-    const submitIcon = submitBtn.querySelector('i');
+// Contact Form Submission
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
     
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Change button state to loading
-        submitBtn.disabled = true;
-        submitText.textContent = 'Sending...';
-        submitIcon.className = 'fas fa-spinner fa-spin';
-        
-        // Prepare the template parameters
-        const templateParams = {
-            from_name: form.name.value,
-            from_email: form.email.value,
-            message: `Name: ${form.name.value}\nEmail: ${form.email.value}\n\nMessage:\n${form.message.value}`,
-            to_name: 'Jaymalya',
-            to_email: 'jaymalya.coder@gmail.com'
-        };
-        
-        // Send the email using EmailJS
-        emailjs.send('service_u0q31ek', 'template_7xn7d4a', templateParams)
-            .then(function(response) {
-                // Success state
-                submitBtn.disabled = false;
-                submitText.textContent = 'Message Sent!';
-                submitIcon.className = 'fas fa-check';
-                
-                // Reset form
-                form.reset();
-                
-                // Reset button after 3 seconds
-                setTimeout(() => {
-                    submitText.textContent = 'Send Message';
-                    submitIcon.className = 'fas fa-paper-plane';
-                }, 3000);
-                
-                // Show success message
-                showNotification('Message sent successfully!', 'success');
-            })
-            .catch(function(error) {
-                // Error state
-                submitBtn.disabled = false;
-                submitText.textContent = 'Send Message';
-                submitIcon.className = 'fas fa-paper-plane';
-                
-                // Show error message
-                showNotification('Failed to send message. Please try again.', 'error');
-                console.error('EmailJS Error:', error);
-            });
-    });
-}
+    // Show loading state
+    const submitBtn = this.querySelector('.submit-btn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    submitBtn.disabled = true;
 
-// Notification System
-function showNotification(message, type) {
+    // Get form values
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const plan = document.getElementById('plan').value;
+    const message = document.getElementById('message').value;
+
+    // Prepare template parameters
+    const templateParams = {
+        from_name: name,
+        from_email: email,
+        selected_plan: plan,
+        message: message,
+        to_name: 'Jaymalya',
+        to_email: 'jaymalya.coder@gmail.com'
+    };
+
+    // Send email using EmailJS
+    emailjs.send('service_u0q31ek', 'template_7xn7d4a', templateParams)
+        .then(function() {
+            // Show success notification
+            showNotification('Message sent successfully!', 'success');
+            
+            // Reset form
+            document.getElementById('contactForm').reset();
+            
+            // Reset button
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, function(error) {
+            // Show error notification
+            showNotification('Failed to send message. Please try again.', 'error');
+            
+            // Reset button
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+            
+            console.error('EmailJS Error:', error);
+        });
+});
+
+// Notification function
+function showNotification(message, type = 'success') {
     const notification = document.createElement('div');
     notification.className = `notification ${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-            <p>${message}</p>
-        </div>
-    `;
+    
+    const content = document.createElement('div');
+    content.className = 'notification-content';
+    
+    const icon = document.createElement('i');
+    icon.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    
+    const text = document.createElement('p');
+    text.textContent = message;
+    
+    content.appendChild(icon);
+    content.appendChild(text);
+    notification.appendChild(content);
     
     document.body.appendChild(notification);
     
-    // Animate in
-    setTimeout(() => {
-        notification.classList.add('show');
-    }, 100);
+    // Show notification
+    setTimeout(() => notification.classList.add('show'), 100);
     
-    // Remove after 3 seconds
+    // Hide and remove notification
     setTimeout(() => {
         notification.classList.remove('show');
-        setTimeout(() => {
-            notification.remove();
-        }, 300);
+        setTimeout(() => notification.remove(), 300);
     }, 3000);
 }
 
@@ -475,16 +496,21 @@ function initSkillCards() {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.classList.add('animate');
-                }, index * 150); // Staggered animation
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
             }
         });
     }, {
-        threshold: 0.2
+        threshold: 0.1,
+        rootMargin: '50px'
     });
 
-    cards.forEach(card => observer.observe(card));
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+        observer.observe(card);
+    });
 }
 
 class UltraSmootherPreloader {
@@ -1398,4 +1424,72 @@ document.addEventListener('DOMContentLoaded', function() {
     const lastModified = new Date(document.lastModified);
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     document.getElementById('lastUpdated').textContent = lastModified.toLocaleDateString('en-US', options);
-}); 
+});
+
+// Enhanced Select Dropdown
+const planSelect = document.getElementById('plan');
+
+// Add hover effect class
+planSelect.addEventListener('mouseover', function(e) {
+    if (e.target.tagName === 'OPTION') {
+        e.target.classList.add('option-hover');
+    }
+});
+
+planSelect.addEventListener('mouseout', function(e) {
+    if (e.target.tagName === 'OPTION') {
+        e.target.classList.remove('option-hover');
+    }
+});
+
+// Add change animation
+planSelect.addEventListener('change', function() {
+    this.classList.add('option-selected');
+    setTimeout(() => {
+        this.classList.remove('option-selected');
+    }, 500);
+});
+
+// Highlight the selected option
+planSelect.addEventListener('input', function() {
+    const options = this.querySelectorAll('option');
+    options.forEach(option => {
+        if (option.selected && !option.disabled) {
+            option.classList.add('option-active');
+        } else {
+            option.classList.remove('option-active');
+        }
+    });
+});
+
+// Initialize EmailJS
+(function() {
+    emailjs.init("7l4-wsXQ8SkMCQCmg");
+})();
+
+// Initialize testimonial cards
+function initTestimonialCards() {
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    
+    if (!('IntersectionObserver' in window)) {
+        testimonialCards.forEach(card => {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        });
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '20px'
+    });
+
+    testimonialCards.forEach(card => observer.observe(card));
+} 

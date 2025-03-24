@@ -27,6 +27,11 @@
     <!-- Header -->
     <header>
         <div class="logo">JS</div>
+        <div class="menu-toggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
         <nav>
             <ul>
                 <li><a href="#home" class="nav-link">Home</a></li>
@@ -42,11 +47,6 @@
                 <span>Let's Chat</span>
             </a>
         </nav>
-        <div class="menu-toggle">
-            <div class="bar"></div>
-            <div class="bar"></div>
-            <div class="bar"></div>
-        </div>
     </header>
 
     <!-- Main Content -->
@@ -158,75 +158,37 @@
             <div class="skills-grid">
                 <!-- Frontend Card -->
                 <div class="skill-card">
-                    <div class="skill-icon">
-                        <span class="emoji">💻</span>
-                    </div>
                     <h3>Frontend</h3>
                     <ul class="skill-list">
-                        <li>
-                            <span class="skill-name">HTML</span>
-                            <div class="skill-hover-effect"></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">CSS</span>
-                            <div class="skill-hover-effect"></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">JavaScript</span>
-                            <div class="skill-hover-effect"></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">React</span>
-                            <div class="skill-hover-effect"></div>
-                        </li>
+                        <li><span class="skill-name">HTML</span></li>
+                        <li><span class="skill-name">CSS</span></li>
+                        <li><span class="skill-name">JavaScript</span></li>
+                        <li><span class="skill-name">React</span></li>
+                        <li><span class="skill-name">TypeScript</span></li>
                     </ul>
                 </div>
 
                 <!-- Backend Card -->
                 <div class="skill-card">
-                    <div class="skill-icon">
-                        <span class="emoji">🔧</span>
-                    </div>
                     <h3>Backend</h3>
                     <ul class="skill-list">
-                        <li>
-                            <span class="skill-name">Python</span>
-                            <div class="skill-hover-effect"></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">Node.js</span>
-                            <div class="skill-hover-effect"></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">Java</span>
-                            <div class="skill-hover-effect"></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">PHP</span>
-                            <div class="skill-hover-effect"></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">MySQL</span>
-                            <div class="skill-hover-effect"></div>
-                        </li>
+                        <li><span class="skill-name">Python</span></li>
+                        <li><span class="skill-name">Node.js</span></li>
+                        <li><span class="skill-name">Java</span></li>
+                        <li><span class="skill-name">PHP</span></li>
+                        <li><span class="skill-name">MySQL</span></li>
                     </ul>
                 </div>
 
-                <!-- UI/UX Card -->
+                <!-- UI/UX Design -->
                 <div class="skill-card">
-                    <div class="skill-icon">
-                        <span class="emoji">🎨</span>
-                    </div>
                     <h3>UI/UX Design</h3>
                     <ul class="skill-list">
-                        <li>
-                            <span class="skill-name">Advanced web interface</span>
-                            <div class="skill-hover-effect"></div>
-                        </li>
-                        <li>
-                            <span class="skill-name">Experience design</span>
-                            <div class="skill-hover-effect"></div>
-                        </li>
+                        <li><span class="skill-name">Web Design</span></li>
+                        <li><span class="skill-name">Responsive Design</span></li>
+                        <li><span class="skill-name">User Interface</span></li>
+                        <li><span class="skill-name">User Experience</span></li>
+                        <li><span class="skill-name">Interactive Design</span></li>
                     </ul>
                 </div>
             </div>
@@ -298,6 +260,7 @@
             </div>
             <div class="glass-container">
                 <div class="pricing-grid">
+                    <!-- Basic Plan -->
                     <div class="pricing-card" data-price-inr="4,999" data-price-usd="60">
                         <div class="pricing-header">
                             <h3>Basic Plan</h3>
@@ -320,6 +283,7 @@
                         </button>
                     </div>
 
+                    <!-- Standard Plan -->
                     <div class="pricing-card" data-price-inr="9,999" data-price-usd="120">
                         <div class="pricing-header">
                             <h3>Standard Plan</h3>
@@ -342,8 +306,8 @@
                         </button>
                     </div>
 
-                    <div class="pricing-card featured" data-price-inr="14,999" data-price-usd="180">
-                        <div class="pricing-badge">Popular</div>
+                    <!-- Business Plan -->
+                    <div class="pricing-card" data-price-inr="14,999" data-price-usd="180">
                         <div class="pricing-header">
                             <h3>Business Plan</h3>
                             <div class="price">
@@ -365,24 +329,76 @@
                         </button>
                     </div>
 
-                    <div class="pricing-card" data-price-inr="19,999" data-price-usd="240">
+                    <!-- Advanced Plan (Most Popular) -->
+                    <div class="pricing-card featured" data-price-inr="24,999" data-price-usd="300">
+                        <div class="pricing-badge">Most Popular</div>
                         <div class="pricing-header">
-                            <h3>Premium Plan</h3>
+                            <h3>Advanced Plan</h3>
                             <div class="price">
                                 <span class="currency">₹</span>
-                                <span class="amount">19,999</span>
+                                <span class="amount">24,999</span>
                             </div>
-                            <p class="price-subtitle">Enterprise solutions</p>
+                            <p class="price-subtitle">Complete solution</p>
                         </div>
                         <ul class="pricing-features">
-                            <li><i class="fas fa-check"></i> Advanced Web App</li>
-                            <li><i class="fas fa-check"></i> Premium Design</li>
-                            <li><i class="fas fa-check"></i> Complex Animations</li>
-                            <li><i class="fas fa-check"></i> Full Optimization</li>
-                            <li><i class="fas fa-check"></i> Priority Support</li>
+                            <li><i class="fas fa-check"></i> Full-stack Website Development</li>
+                            <li><i class="fas fa-check"></i> Advanced UI/UX with Animations</li>
+                            <li><i class="fas fa-check"></i> SEO Optimization & Performance</li>
+                            <li><i class="fas fa-check"></i> Lifetime Support & Updates</li>
+                            <li><i class="fas fa-check"></i> Priority Bug Fixes</li>
+                            <li><i class="fas fa-check"></i> Future Enhancements Access</li>
                         </ul>
                         <button class="btn btn-primary pricing-btn" onclick="showContactPopup()">
                             Get Started
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Ultimate Plan -->
+                    <div class="pricing-card" data-price-inr="49,999" data-price-usd="600">
+                        <div class="pricing-header">
+                            <h3>Ultimate Plan</h3>
+                            <div class="price">
+                                <span class="currency">₹</span>
+                                <span class="amount">49,999</span>
+                            </div>
+                            <p class="price-subtitle">Enterprise solution</p>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> Ultra-smooth Animations</li>
+                            <li><i class="fas fa-check"></i> Premium Security & Speed</li>
+                            <li><i class="fas fa-check"></i> E-commerce Integration</li>
+                            <li><i class="fas fa-check"></i> Custom Backend & Database</li>
+                            <li><i class="fas fa-check"></i> Cloud Deployment</li>
+                            <li><i class="fas fa-check"></i> 24/7 Priority Support</li>
+                            <li><i class="fas fa-check"></i> AI-powered Features</li>
+                            <li><i class="fas fa-check"></i> Exclusive Consultation</li>
+                        </ul>
+                        <button class="btn btn-primary pricing-btn" onclick="showContactPopup()">
+                            Get Started
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Custom Plan -->
+                    <div class="pricing-card" data-price-inr="Custom" data-price-usd="Custom">
+                        <div class="pricing-header">
+                            <h3>Custom Plan</h3>
+                            <div class="price">
+                                <span>Contact</span>
+                            </div>
+                            <p class="price-subtitle">Tailored to your needs</p>
+                        </div>
+                        <ul class="pricing-features">
+                            <li><i class="fas fa-check"></i> Custom Requirements</li>
+                            <li><i class="fas fa-check"></i> Scalable Solutions</li>
+                            <li><i class="fas fa-check"></i> Dedicated Support</li>
+                            <li><i class="fas fa-check"></i> Flexible Integration</li>
+                            <li><i class="fas fa-check"></i> Custom Features</li>
+                            <li><i class="fas fa-check"></i> Priority Development</li>
+                        </ul>
+                        <button class="btn btn-primary pricing-btn" onclick="showContactPopup()">
+                            Contact Us
                             <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
@@ -396,14 +412,15 @@
                 <h2>What Clients Say</h2>
                 <div class="accent-line"></div>
             </div>
-
+            
             <div class="testimonials-grid">
-                <!-- Samiul Khan -->
+                <!-- Testimonial 1 -->
                 <div class="testimonial-card">
                     <div class="client-profile">
-                        <div class="profile-image" data-initial="SK"></div>
+                        <div class="profile-image">SK</div>
                         <div class="client-info">
                             <h3>Samiul Khan</h3>
+                            <p>Tech Entrepreneur</p>
                             <div class="rating">
                                 <span>★★★★★</span>
                             </div>
@@ -414,12 +431,13 @@
                     </div>
                 </div>
 
-                <!-- Ujan Khamaru -->
+                <!-- Testimonial 2 -->
                 <div class="testimonial-card">
                     <div class="client-profile">
-                        <div class="profile-image" data-initial="UK"></div>
+                        <div class="profile-image">UK</div>
                         <div class="client-info">
                             <h3>Ujan Khamaru</h3>
+                            <p>Software Developer</p>
                             <div class="rating">
                                 <span>★★★★</span>
                             </div>
@@ -486,28 +504,35 @@
                         </div>
                     </div>
                     
+                    <!-- Contact Form -->
                     <div class="contact-form-container">
-                        <form id="contact-form" class="contact-form">
-                            <div class="form-group">
+                        <form id="contactForm" class="contact-form">
                                 <div class="form-field">
-                                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
-                                    <div class="neon-border"></div>
+                                <input type="text" id="name" name="name" required>
+                                <label for="name">Your Name</label>
                                 </div>
+                            <div class="form-field">
+                                <input type="email" id="email" name="email" required>
+                                <label for="email">Your Email</label>
                             </div>
-                            <div class="form-group">
                                 <div class="form-field">
-                                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
-                                    <div class="neon-border"></div>
-                                </div>
+                                <select id="plan" name="plan" required>
+                                    <option value="" disabled selected></option>
+                                    <option value="Basic Plan - ₹4,999">Basic Plan | ₹4,999 - Perfect Starter</option>
+                                    <option value="Standard Plan - ₹9,999">Standard Plan | ₹9,999 - Growing Business</option>
+                                    <option value="Business Plan - ₹14,999">Business Plan | ₹14,999 - Professional</option>
+                                    <option value="Advanced Plan - ₹24,999">Advanced Plan | ₹24,999 - Most Popular</option>
+                                    <option value="Ultimate Plan - ₹49,999">Ultimate Plan | ₹49,999 - Enterprise</option>
+                                    <option value="Custom Plan">Custom Plan | Tailored Solution</option>
+                                </select>
+                                <label for="plan">Select Plan</label>
                             </div>
-                            <div class="form-group">
                                 <div class="form-field">
-                                    <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
-                                    <div class="neon-border"></div>
-                                </div>
+                                <textarea id="message" name="message" required></textarea>
+                                <label for="message">Your Message</label>
                             </div>
-                            <button type="submit" class="btn btn-primary submit-btn">
-                                <span>Send Message</span>
+                            <button type="submit" class="submit-btn">
+                                Send Message
                                 <i class="fas fa-paper-plane"></i>
                             </button>
                         </form>

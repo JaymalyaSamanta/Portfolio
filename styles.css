@@ -109,7 +109,7 @@ nav ul {
     color: var(--text-secondary);
     text-decoration: none;
     padding: 5px 0;
-    transition: var(--transition-smooth);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-link::after {
@@ -119,40 +119,45 @@ nav ul {
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, #00ff8c, #00a1ff);
+    background: linear-gradient(90deg, #FF3131, #0048FF);
     transform: scaleX(0);
     transform-origin: right;
     transition: transform 0.3s ease;
 }
 
-.nav-link.active::after {
-    transform: scaleX(1);
+.nav-link:hover {
+    color: var(--text-primary);
 }
 
-/* Let's Chat Button in Nav */
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Enhanced Let's Chat Button */
 .nav-chat-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 25px;
-    background: linear-gradient(-45deg, #FF3131, #0048FF, #8A2BE2, #FF3131);
-    background-size: 300% 300%;
+    padding: 12px 28px;
+    background: linear-gradient(-45deg, #FF3131, #0048FF);
+    background-size: 200% 200%;
     border-radius: 25px;
     color: var(--text-primary);
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.5s ease;
-    margin-left: 20px;
-    animation: gradientBG 8s linear infinite;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border: none;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: gradientBG 4s linear infinite;
+    margin-left: 40px;  /* Space only between contact and chat button */
 }
 
 .nav-chat-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) scale(1.02);
     box-shadow: 0 6px 20px rgba(255, 49, 49, 0.3),
-                0 6px 20px rgba(0, 72, 255, 0.3),
-                0 6px 20px rgba(138, 43, 226, 0.3);
+                0 6px 20px rgba(0, 72, 255, 0.3);
+    filter: brightness(1.1);
 }
 
 .nav-chat-btn span {
@@ -171,18 +176,94 @@ nav ul {
     }
 }
 
-/* Responsive Design for Nav */
+/* Mobile Menu Styles */
 @media (max-width: 768px) {
-    nav ul {
-        display: none;
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 100%;
+        height: 100vh;
+        background: rgba(13, 13, 13, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 999;
     }
 
-    .nav-chat-btn {
-        display: none;
+    nav.active {
+        right: 0;
+    }
+
+    nav ul {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        margin: 0;
+        padding: 20px 0;
+        width: 100%;
+        list-style: none;
+    }
+
+    .nav-link {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+        color: var(--text-primary);
+        text-align: center;
+        width: 100%;
+        opacity: 1;
+        transform: none;
     }
 
     .menu-toggle {
         display: block;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        cursor: pointer;
+        padding: 10px;
+    }
+
+    .menu-toggle .bar {
+        width: 25px;
+        height: 2px;
+        background: var(--text-primary);
+        margin: 5px 0;
+        transition: var(--transition-smooth);
+        display: block;
+    }
+
+    .menu-toggle.active .bar:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-toggle.active .bar:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    .nav-chat-btn {
+        margin: 20px auto;
+        position: relative;
+        opacity: 1;
+    }
+}
+
+/* Remove any conflicting media queries */
+@media (max-width: 768px) {
+    nav ul {
+        display: flex !important;
+        position: static;
+        height: auto;
+        background: none;
+        padding: 20px 0;
     }
 }
 
@@ -277,98 +358,102 @@ nav ul {
     margin-bottom: 40px;
 }
 
-/* Buttons */
+/* Enhanced Button Styles */
 .btn {
     display: inline-flex;
     align-items: center;
+    gap: 10px;
     padding: 15px 35px;
     border-radius: 30px;
-    text-decoration: none;
     font-weight: 600;
-    transition: var(--transition-smooth);
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
     z-index: 1;
 }
 
-.btn::before {
+/* Hire Me Button */
+.btn-primary {
+    background: linear-gradient(-45deg, #FF3131, #0048FF);
+    background-size: 200% 200%;
+    color: var(--text-primary);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: gradientBG 4s linear infinite;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 20px rgba(255, 49, 49, 0.3),
+                0 6px 20px rgba(0, 72, 255, 0.3);
+    filter: brightness(1.1);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+/* About Me Button - Glassmorphism */
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    z-index: -1;
-    transition: var(--transition-smooth);
-}
-
-.btn-primary::before {
-    opacity: 1;
-}
-
-.btn-secondary::before {
+    background: linear-gradient(45deg, rgba(255, 49, 49, 0.1), rgba(0, 72, 255, 0.1));
     opacity: 0;
-}
-
-.btn-primary {
-    background: var(--primary-color);
-    color: var(--text-primary);
-}
-
-.btn-secondary {
-    background: rgba(0, 72, 255, 0.1);
-    color: var(--text-primary);
-    border: none;
-    backdrop-filter: blur(10px);
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-secondary::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #FF3131, #0048FF, #8A2BE2, #FF3131);
-    background-size: 300% 300%;
-    z-index: -1;
-    border-radius: 32px;
-    animation: gradientBG 8s linear infinite;
-}
-
-.btn-secondary::after {
-    content: '';
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    right: 1px;
-    bottom: 1px;
-    background: var(--background-dark);
-    border-radius: 30px;
+    transition: opacity 0.3s ease;
     z-index: -1;
 }
 
 .btn-secondary:hover {
-    background: rgba(0, 72, 255, 0.15);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-.btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
+.btn-secondary:hover::before {
+    opacity: 1;
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
 }
 
 /* Skills Section */
 .skills-section {
     padding: 100px 20px;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.95));
+    background: var(--background-darker);
     min-height: 100vh;
     position: relative;
     overflow: hidden;
+    z-index: 1;
+}
+
+.skills-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        rgba(255, 49, 49, 0.05),
+        rgba(0, 72, 255, 0.05)
+    );
+    pointer-events: none;
+    z-index: -1;
 }
 
 .skills-grid {
@@ -378,17 +463,21 @@ nav ul {
     max-width: 1200px;
     margin: 40px auto 0;
     padding: 20px;
+    position: relative;
+    z-index: 2;
 }
 
 .skill-card {
-    background: var(--background-darker);
-    border: 1px solid var(--secondary-color);
+    background: rgba(17, 17, 17, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    transition: var(--transition-smooth);
+    transition: all 0.3s ease;
     border-radius: 20px;
     padding: 30px;
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .skill-card::before {
@@ -398,15 +487,15 @@ nav ul {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, #00ff8c, #00a1ff);
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
     transform: scaleX(0);
     transition: transform 0.4s ease;
 }
 
 .skill-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--red-glow);
-    border-color: var(--primary-color);
+    border-color: rgba(255, 49, 49, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .skill-card:hover::before {
@@ -426,10 +515,13 @@ nav ul {
 .skill-card h3 {
     color: #fff;
     font-size: 1.5rem;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .skill-list {
@@ -440,27 +532,45 @@ nav ul {
 
 .skill-list li {
     position: relative;
-    padding: 12px 0;
+    padding: 8px 0 8px 24px;
     margin: 8px 0;
-    color: rgba(255, 255, 255, 0.9);
-    transition: all 0.3s ease;
-    cursor: pointer;
+    color: var(--text-color);
+    transition: transform 0.3s ease;
+}
+
+.skill-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, #00f2fe, #4facfe);
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.skill-list li:hover {
+    transform: translateX(5px);
 }
 
 .skill-name {
-    position: relative;
-    z-index: 2;
-    transition: color 0.3s ease;
+    font-size: 0.95rem;
+    font-weight: 500;
 }
 
 .skill-hover-effect {
     position: absolute;
-    left: -10px;
+    left: 0;
     top: 0;
-    width: calc(100% + 20px);
+    width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, rgba(0, 255, 140, 0.1), rgba(0, 161, 255, 0.1));
-    border-radius: 5px;
+    background: linear-gradient(90deg, 
+        rgba(255, 49, 49, 0.1), 
+        rgba(0, 72, 255, 0.1)
+    );
+    border-radius: 8px;
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
@@ -471,31 +581,34 @@ nav ul {
 }
 
 .skill-list li:hover .skill-name {
-    color: #00ff8c;
+    color: var(--primary-color);
 }
 
-/* Animation for cards */
-.skill-card {
-    opacity: 0;
-    transform: translateY(30px);
+/* Section header styling */
+.skills-section .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
 }
 
-.skill-card.animate {
-    animation: fadeInUp 0.6s ease forwards;
+.skills-section .section-header h2 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.skills-section .accent-line {
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    margin: 0 auto;
+    position: relative;
+    border-radius: 2px;
 }
 
-/* Responsive Design */
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .skills-grid {
         grid-template-columns: 1fr;
@@ -503,7 +616,22 @@ nav ul {
     }
     
     .skill-card {
-        padding: 20px;
+        padding: 25px;
+    }
+    
+    .skill-list li {
+        padding: 10px 15px 10px 30px;
+        font-size: 0.95rem;
+    }
+    
+    .skill-list li::before {
+        left: 12px;
+        width: 6px;
+        height: 6px;
+    }
+    
+    .skills-section .section-header h2 {
+        font-size: 2rem;
     }
 }
 
@@ -751,113 +879,75 @@ nav ul {
     border: 1px solid var(--glass-border);
 }
 
-.form-group {
-    margin-bottom: 25px;
-}
-
 .form-field {
-    margin-bottom: 25px;
+    position: relative;
+    margin-bottom: 20px;
 }
 
 .form-field input,
+.form-field select,
 .form-field textarea {
     width: 100%;
-    padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 2px solid var(--glass-border);
-    border-radius: 12px;
-    color: var(--text-primary);
-    font-size: 1rem;
-    transition: var(--transition-smooth);
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    transition: all 0.3s ease;
 }
 
-/* Placeholder Styles */
-.form-field input::placeholder,
-.form-field textarea::placeholder {
-    color: rgba(255, 255, 255, 0.3);
-    font-size: 0.95rem;
-    transition: var(--transition-smooth);
+.form-field select {
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px;
 }
 
-/* Placeholder styles for different browsers */
-.form-field input::-webkit-input-placeholder,
-.form-field textarea::-webkit-input-placeholder {
-    color: rgba(255, 255, 255, 0.3);
-    opacity: 1;
-}
-
-.form-field input::-moz-placeholder,
-.form-field textarea::-moz-placeholder {
-    color: rgba(255, 255, 255, 0.3);
-    opacity: 1;
-}
-
-.form-field input:-ms-input-placeholder,
-.form-field textarea:-ms-input-placeholder {
-    color: rgba(255, 255, 255, 0.3);
-    opacity: 1;
-}
-
-/* Focus states */
-.form-field input:focus::placeholder,
-.form-field textarea:focus::placeholder {
-    opacity: 0;
-    transform: translateX(-10px);
-}
-
-.form-field input:focus::-webkit-input-placeholder,
-.form-field textarea:focus::-webkit-input-placeholder {
-    opacity: 0;
-    transform: translateX(-10px);
-}
-
-.form-field input:focus::-moz-placeholder,
-.form-field textarea:focus::-moz-placeholder {
-    opacity: 0;
-    transform: translateX(-10px);
-}
-
-.form-field input:focus:-ms-input-placeholder,
-.form-field textarea:focus:-ms-input-placeholder {
-    opacity: 0;
-    transform: translateX(-10px);
-}
-
-/* Existing styles */
-.form-field textarea {
-    min-height: 150px;
-    resize: vertical;
-}
-
-.form-field input:focus,
-.form-field textarea:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 20px rgba(0, 255, 136, 0.1);
+.form-field select option {
+    background: #1a1a1a;
+    color: #fff;
 }
 
 .form-field label {
     position: absolute;
-    left: 20px;
+    left: 12px;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--background-dark);
-    padding: 0 10px;
     color: rgba(255, 255, 255, 0.6);
-    transition: var(--transition-smooth);
     pointer-events: none;
+    transition: all 0.3s ease;
 }
 
 .form-field textarea ~ label {
-    top: 30px;
+    top: 12px;
+    transform: none;
 }
 
 .form-field input:focus ~ label,
-.form-field textarea:focus ~ label,
 .form-field input:valid ~ label,
+.form-field select:focus ~ label,
+.form-field select:valid ~ label,
+.form-field textarea:focus ~ label,
 .form-field textarea:valid ~ label {
-    top: 0;
-    font-size: 0.85rem;
-    color: var(--primary-color);
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    background: #1a1a1a;
+    padding: 0 5px;
+    color: #fff;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
 .submit-btn {
@@ -879,7 +969,8 @@ nav ul {
 
 .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+    box-shadow: 0 5px 15px rgba(255, 49, 49, 0.3),
+                0 5px 15px rgba(0, 72, 255, 0.3);
 }
 
 .submit-btn i {
@@ -1434,8 +1525,9 @@ input:checked + .slider:before {
 }
 
 .pricing-card {
-    background: var(--background-darker);
-    border: 1px solid var(--secondary-color);
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     transition: var(--transition-smooth);
     border-radius: 20px;
@@ -1461,9 +1553,11 @@ input:checked + .slider:before {
 }
 
 .pricing-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--red-glow);
-    border-color: var(--primary-color);
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 49, 49, 0.2),
+                0 0 20px rgba(0, 72, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .pricing-card:hover::before {
@@ -1471,12 +1565,22 @@ input:checked + .slider:before {
 }
 
 .pricing-card.featured {
-    border: 2px solid var(--primary-color);
-    transform: scale(1.05);
+    border: 2px solid transparent;
+    background: linear-gradient(rgba(26, 26, 26, 0.95), rgba(26, 26, 26, 0.95)),
+                linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3),
+                0 0 20px rgba(255, 49, 49, 0.2),
+                0 0 20px rgba(0, 72, 255, 0.2);
 }
 
 .pricing-card.featured:hover {
-    transform: scale(1.05) translateY(-10px);
+    transform: scale(1.03) translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4),
+                0 0 30px rgba(255, 49, 49, 0.3),
+                0 0 30px rgba(0, 72, 255, 0.3);
 }
 
 .pricing-badge {
@@ -1484,17 +1588,48 @@ input:checked + .slider:before {
     top: 20px;
     right: 20px;
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    padding: 8px 15px;
-    border-radius: 20px;
+    padding: 8px 16px;
     font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--background-dark);
+    font-weight: 600;
+    color: var(--text-primary);
+    z-index: 2;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    backdrop-filter: blur(5px);
+}
+
+.pricing-badge::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+/* Remove the previous animations and effects */
+@keyframes badgePulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.pricing-badge {
+    animation: badgePulse 2s infinite;
 }
 
 .pricing-header {
     text-align: center;
     position: relative;
     z-index: 1;
+    padding-top: 20px;
 }
 
 .pricing-header h3 {
@@ -1503,6 +1638,8 @@ input:checked + .slider:before {
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 1;
 }
 
 .price {
@@ -1524,6 +1661,7 @@ input:checked + .slider:before {
 .price-subtitle {
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 20px;
 }
 
 .pricing-features {
@@ -1533,6 +1671,8 @@ input:checked + .slider:before {
     gap: 15px;
     position: relative;
     z-index: 1;
+    margin: 0;
+    padding: 0;
 }
 
 .pricing-features li {
@@ -1541,15 +1681,22 @@ input:checked + .slider:before {
     gap: 10px;
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.8);
+    transition: var(--transition-smooth);
 }
 
 .pricing-features li i {
     color: var(--primary-color);
     font-size: 0.9rem;
+    transition: var(--transition-smooth);
+}
+
+.pricing-card:hover .pricing-features li {
+    color: var(--text-primary);
 }
 
 .pricing-card:hover .pricing-features li i {
-    animation: checkmark 0.5s ease-out forwards;
+    transform: scale(1.2);
+    color: var(--secondary-color);
 }
 
 .pricing-btn {
@@ -1561,6 +1708,14 @@ input:checked + .slider:before {
     gap: 10px;
     position: relative;
     z-index: 1;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+.pricing-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 49, 49, 0.3),
+                0 5px 15px rgba(0, 72, 255, 0.3);
 }
 
 .pricing-btn i {
@@ -1574,6 +1729,7 @@ input:checked + .slider:before {
 @media (max-width: 1200px) {
     .pricing-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
     }
 }
 
@@ -1593,11 +1749,11 @@ input:checked + .slider:before {
     }
 
     .pricing-card.featured {
-        transform: scale(1);
+        transform: scale(1.01);
     }
 
     .pricing-card.featured:hover {
-        transform: translateY(-10px);
+        transform: scale(1.01) translateY(-10px);
     }
 }
 
@@ -1913,62 +2069,47 @@ input:checked + .slider:before {
 
 .testimonials-section {
     padding: 100px 20px;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.95));
+    background: var(--background-darker);
     position: relative;
     overflow: hidden;
-}
-
-.testimonials-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 50% 50%, rgba(0,255,140,0.1), transparent 70%);
-    pointer-events: none;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
 .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 40px auto 0;
     padding: 20px;
+    width: 100%;
+    z-index: 2;
 }
 
 .testimonial-card {
-    background: var(--background-darker);
-    border: 1px solid var(--secondary-color);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    transition: var(--transition-smooth);
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 30px;
     position: relative;
     overflow: hidden;
-}
-
-.testimonial-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(0,255,140,0.5), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.6s ease;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: all 0.3s ease;
+    display: block !important;
+    visibility: visible !important;
 }
 
 .testimonial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--red-glow);
+    transform: translateY(-5px) !important;
     border-color: var(--primary-color);
-}
-
-.testimonial-card:hover::before {
-    transform: translateX(100%);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
 .client-profile {
@@ -1981,14 +2122,14 @@ input:checked + .slider:before {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #00ff8c, #00a1ff);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    margin-right: 15px;
     color: #fff;
     font-weight: bold;
-    margin-right: 15px;
+    font-size: 1.2rem;
 }
 
 .client-info {
@@ -1996,50 +2137,38 @@ input:checked + .slider:before {
 }
 
 .client-info h3 {
-    color: #fff;
-    font-size: 18px;
-    margin: 0 0 5px;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: var(--text-primary);
 }
 
 .client-info p {
-    color: rgba(255,255,255,0.7);
-    font-size: 14px;
-    margin: 0;
-}
-
-.rating {
-    margin-top: 8px;
-    color: #ffd700;
-    font-size: 16px;
-    text-shadow: 0 0 10px rgba(255,215,0,0.5);
-    animation: glow 2s ease-in-out infinite;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
 }
 
 .testimonial-content p {
-    color: rgba(255,255,255,0.9);
-    font-size: 15px;
+    font-size: 1rem;
     line-height: 1.6;
-    margin: 0;
+    color: var(--text-primary);
+    margin-bottom: 0;
 }
 
-@keyframes glow {
-    0%, 100% {
-        text-shadow: 0 0 10px rgba(255,215,0,0.5);
-    }
-    50% {
-        text-shadow: 0 0 20px rgba(255,215,0,0.8);
-    }
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
+    .testimonials-section {
+        padding: 80px 20px;
+    }
+
     .testimonials-grid {
         grid-template-columns: 1fr;
         padding: 10px;
+        margin-top: 20px;
     }
 
     .testimonial-card {
-        padding: 20px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 400px;
     }
 }
 
@@ -2307,24 +2436,72 @@ p, h1, h2, h3, h4, h5, h6, span, li {
 /* Ensure proper stacking on mobile */
 @media (max-width: 768px) {
     .section {
-        position: relative;
-        z-index: 1;
-        overflow: hidden;
+        padding: 80px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
     }
 
     .glass-container {
-        position: relative;
-        z-index: 2;
-        margin: 20px;
-        padding: 20px;
-        overflow: hidden;
+        width: 100%;
+        max-width: calc(100% - 40px);
+        margin: 0 auto;
+        padding: 30px 20px;
     }
 
+    .skills-section,
     .about-section,
-    .pricing-section {
-        position: relative;
-        z-index: 1;
-        overflow: hidden;
+    .services-section,
+    .pricing-section,
+    .contact-section,
+    .testimonials-section {
+        padding: 80px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .skills-grid,
+    .services-grid,
+    .pricing-grid,
+    .testimonials-grid {
+        width: 100%;
+        max-width: 100%;
+        padding: 10px 0;
+    }
+
+    .skill-card,
+    .service-card,
+    .pricing-card,
+    .testimonial-card {
+        width: 100%;
+        margin: 0 auto 20px;
+    }
+
+    .section-header {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .section-header h2 {
+        font-size: 2rem;
+        padding: 0 20px;
+    }
+
+    .contact-content,
+    .about-content {
+        width: 100%;
+        padding: 0;
+    }
+
+    .contact-form-container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
     }
 }
 
@@ -2342,5 +2519,74 @@ p, h1, h2, h3, h4, h5, h6, span, li {
         box-shadow: 0 0 5px var(--primary-color),
                     0 0 10px var(--primary-color);
     }
+}
+
+.form-field select {
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--glass-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: var(--transition-smooth);
+    appearance: none;
+    cursor: pointer;
+}
+
+.form-field select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(255, 49, 49, 0.1);
+    outline: none;
+}
+
+.form-field select option {
+    background: var(--background-darker);
+    color: var(--text-primary);
+    padding: 15px;
+}
+
+/* Add a custom arrow for the select */
+.form-field {
+    position: relative;
+}
+
+.form-field:has(select)::after {
+    content: '\f107';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    pointer-events: none;
+    transition: var(--transition-smooth);
+}
+
+.form-field:has(select:focus)::after {
+    transform: translateY(-50%) rotate(180deg);
+    color: var(--secondary-color);
+}
+
+/* Adjust label position for select */
+.form-field select:focus + label,
+.form-field select:valid + label {
+    top: 0;
+    font-size: 0.85rem;
+    color: var(--primary-color);
+    background: var(--background-darker);
+    padding: 0 10px;
+}
+
+.rating {
+    margin-top: 8px;
+    color: #ffd700;
+    font-size: 16px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.rating span {
+    letter-spacing: 2px;
 }
 
